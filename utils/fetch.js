@@ -35,5 +35,5 @@ module.exports = async (api, params, type="post") => {
         }
     }
     let res = await fetch(apiUrl, options)
-    return await response.json();
+    return await res.json();
 }
