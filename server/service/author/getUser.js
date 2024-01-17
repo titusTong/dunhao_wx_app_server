@@ -1,5 +1,5 @@
 const {GetUser} = require('../../model/UserModel');
-const paramsCheck = require('../../../utils/paramsCheck');
+// const paramsCheck = require('../../../utils/paramsCheck');
 const methodBody = require('../../../utils/methodBody');
 
 // 查询用户：/api/author/GetUser
@@ -11,14 +11,18 @@ const methodBody = require('../../../utils/methodBody');
 module.exports = async (ctx, next) => {
     let params = methodBody(ctx);
 
-    let rules = {
-        telNumber:'required|string',
-    }
+    // let rules = {
+    //     telNumber:'required|string',
+    // }
 
-    paramsCheck(params, rules);
+    // paramsCheck(params, rules);
+
+    console.log(ctx.header);
+
+    let openId = ctx.header.X-WX-OPENID;
 
 
-    let userInfo = await GetUser({telNumber:params.telNumber})
+    let userInfo = await GetUser({openId})
     
     if(userInfo) {
         return {

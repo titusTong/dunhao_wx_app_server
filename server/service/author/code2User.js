@@ -22,7 +22,7 @@ module.exports = async (ctx, next) => {
     let url = 'https://api.weixin.qq.com/wxa/business/getuserphonenumber';// 微信获取手机号接口；
 
     let telNumberRes = await sendFetch(url, {code:params.code});
-
+    console.log(telNumberRes);
     if(telNumberRes.errcode == 0) {
         // 成功；
         let telNumber = telNumberRes.phone_info.phoneNumber;

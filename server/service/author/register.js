@@ -17,11 +17,12 @@ module.exports = async (ctx, next) => {
         name:'required|string',
         userType:'required|number', // 1或者2 ,2是普通用户（导游），1是管理员；
         area:'required|string', //导游所在地区
-        telNumber:'required|string', // 导游电话
     }
 
     params.userType = 2; //写死所有人注册都是0；后台改管理员
     paramsCheck(params, rules);
+
+    params.openId = ctx.header.X-WX-OPENID;
 
     let [user, created] = await findOrCreateUser(params);
     console.log(user, created);
