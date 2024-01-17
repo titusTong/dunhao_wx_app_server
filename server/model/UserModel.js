@@ -20,7 +20,7 @@ const User = sequelize.define('User', {
 
 
 const GetUser = async (options) => {
-    // 一般通过电话号查询。微信获取到电话号后，通过电话号查询已经注册的用户。
+    // 通过openid查询用户
     console.log(options);
     return await User.findOne({ where: {openId: options.openId}})
 }

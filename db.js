@@ -23,9 +23,6 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
 //     port:'49154'
 // }
 
-
-
-
 // const sequelize = new Sequelize(config.database, config.username, config.password, {
 //     host: config.host,
 //     port:config.port,

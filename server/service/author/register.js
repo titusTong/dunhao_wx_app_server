@@ -7,22 +7,31 @@ const methodBody = require('../../../utils/methodBody');
 // 请求方式：post
 // 参数：
 // name-用户名
-// telNumber-用户手机号
 // area-地区
+// inviteCode-邀请注册码；
 
 module.exports = async (ctx, next) => {
     let params = methodBody(ctx);
+    params.openId = ctx.header['x-wx-openid'];
 
     let rules = {
         name:'required|string',
         userType:'required|number', // 1或者2 ,2是普通用户（导游），1是管理员；
         area:'required|string', //导游所在地区
+        openId:'required|string',
+        inviteCode:'required|string'
     }
 
     params.userType = 2; //写死所有人注册都是0；后台改管理员
     paramsCheck(params, rules);
 
-    params.openId = ctx.header.X-WX-OPENID;
+    if(params.inviteCode !== 'dunhao789') {
+        return {
+            code:0,
+            data:{},
+            msg:'邀请码不正确，请联系管理员索要正确的邀请码'
+        }
+    }
 
     let [user, created] = await findOrCreateUser(params);
     console.log(user, created);
@@ -36,8 +45,7 @@ module.exports = async (ctx, next) => {
         return {
             code:0,
             data:{},
-            msg:`用户已存在，无需注册，请用手机号为${user.dataValues.telNumber}的微信登录`
+            msg:`用户已存在，无需注册，请用${user.dataValues.name}的微信登录`
         }
     }
-    
 }

@@ -1,3 +1,4 @@
+// 因为用微信云托管，本接口废弃。
 
 const {GetUser} = require('../../model/UserModel');
 const paramsCheck = require('../../../utils/paramsCheck');
@@ -8,7 +9,6 @@ const sendFetch = require('../../../utils/fetch');
 // 请求方式：post
 // 参数：
 // code-微信给的code
-
 
 module.exports = async (ctx, next) => {
     let params = methodBody(ctx);

@@ -18,8 +18,8 @@ const routerUtils = (outerCtx) => {
         // 验证登录状态中间件；
         // await require('...')(ctx,next);
         
-        // let isLogin = await require('../middleware/checkLogin')(ctx, next);
-        // if(!isLogin) return ctx.body = {code:-100, data:{}, msg:'请登录'}
+        let isLogin = await require('../middleware/checkLogin')(ctx, next);
+        if(!isLogin) return ctx.body = {code:-100, data:{}, msg:'非注册用户，请注册'}
 
 
         // 业务路由
