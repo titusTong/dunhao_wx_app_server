@@ -1,67 +1,69 @@
-const Koa = require("koa");
-const Router = require("koa-router");
-const logger = require("koa-logger");
-const bodyParser = require("koa-bodyparser");
-const fs = require("fs");
-const path = require("path");
-const { init: initDB, Counter } = require("./db");
 
-const router = new Router();
+const Koa = require('koa2');
+const convert = require('koa-convert');
+const koaBody = require('koa-body');
+const static = require('koa-static');
+const logger = require('koa-logger');
+const router = require('./server/service/routers');
+const InitDB = require('./server/model/init.js');
 
-const homePage = fs.readFileSync(path.join(__dirname, "index.html"), "utf-8");
+// const session = require('koa-session');
 
-// 首页
-router.get("/", async (ctx) => {
-  ctx.body = homePage;
-});
-
-// 更新计数
-router.post("/api/count", async (ctx) => {
-  const { request } = ctx;
-  const { action } = request.body;
-  if (action === "inc") {
-    await Counter.create();
-  } else if (action === "clear") {
-    await Counter.destroy({
-      truncate: true,
-    });
-  }
-
-  ctx.body = {
-    code: 0,
-    data: await Counter.count(),
-  };
-});
-
-// 获取计数
-router.get("/api/count", async (ctx) => {
-  const result = await Counter.count();
-
-  ctx.body = {
-    code: 0,
-    data: result,
-  };
-});
-
-// 小程序调用，获取微信 Open ID
-router.get("/api/wx_openid", async (ctx) => {
-  if (ctx.request.headers["x-wx-source"]) {
-    ctx.body = ctx.request.headers["x-wx-openid"];
-  }
-});
+const path = require('path');
 
 const app = new Koa();
-app
-  .use(logger())
-  .use(bodyParser())
-  .use(router.routes())
-  .use(router.allowedMethods());
+// 为了获取真实ip
+app.proxy=true;
 
-const port = process.env.PORT || 80;
-async function bootstrap() {
-  await initDB();
-  app.listen(port, () => {
-    console.log("启动成功", port);
-  });
+const UTCtoLocalSecond = (utc) => new Date(+new Date(utc)+8*3600*1000).toISOString().replace("T", ' ').replace("Z", '').slice(0, -4);
+
+app.use(logger((str) => {
+    console.log(str + ' ' + UTCtoLocalSecond(new Date()))
+}));
+
+
+
+app.use(koaBody({multipart: true}));
+
+
+// app.keys = ['secret']
+// const CONFIG = {
+//     key: 'koa:sess',
+//     maxAge: 7*24*60*60*1000,
+//     overwrite: true,
+//     httpOnly: true,
+//     signed: true,
+//     rolling: false,
+//     sameSite: 'none'
+// };
+
+// app.use(session(CONFIG, app));
+
+app.use(static(path.join(__dirname, 'dist')));
+
+// 设置跨域
+app.use(async (ctx, next) => {
+
+    ctx.set("Access-Control-Allow-Origin", ctx.headers.origin);
+    ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, sign');
+    ctx.set("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    ctx.set("Access-Control-Allow-Credentials", "true");
+    ctx.set('Access-Control-Max-Age', 60 * 60 * 24 * 7) // 缓存预检时间
+    ctx.set("Content-Type", "application/json;charset=utf-8");
+    await next();
+})
+
+
+app.use(async (ctx, next) => {
+    app.use(router(ctx).routes())
+    .use(router(ctx).allowedMethods())
+    await next()
+})
+
+const initmysql = async () => {
+    await InitDB();
 }
-bootstrap();
+
+initmysql();
+
+module.exports = app;

@@ -1,10 +1,11 @@
 {
-  "name": "wxcloudrun-koa",
+  "name": "dunhao",
   "version": "1.0.0",
-  "description": "微信云托管 koa 框架模板",
+  "description": "顿号导游排期小程序",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -13,11 +14,17 @@
   },
   "dependencies": {
     "body-parser": "^1.19.1",
-    "koa": "^2.13.4",
-    "koa-bodyparser": "^4.3.0",
+    "koa-body": "^4.2.0",
+    "koa-convert": "^2.0.0",
     "koa-logger": "^3.2.1",
     "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0",
+    "koa2": "^2.0.0-alpha.7",
     "mysql2": "^2.3.3",
+    "node-fetch": "^2.7.0",
     "sequelize": "^6.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
