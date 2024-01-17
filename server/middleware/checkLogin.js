@@ -6,11 +6,12 @@ module.exports = async (ctx,next) => {
     let openId = ctx.header['x-wx-openid'];
     // 白名单；
     let api = ctx.request.url.split('/')[3];
+    console.log(api)
     let apiArr = ['register',];
     if(apiArr.indexOf(api) !== -1) return true;
 
 
-    if(session.account) {
+    if(openId) {
         let res = await GetUser({openId});
         if(res && res.id) return true;
     }
