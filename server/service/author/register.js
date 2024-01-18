@@ -38,7 +38,7 @@ module.exports = async (ctx, next) => {
     if(created) {
         return {
             code:1,
-            data:res,
+            data:user,
             msg:'成功'
         }
     } else {
