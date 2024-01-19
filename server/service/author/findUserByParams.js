@@ -14,5 +14,9 @@ module.exports = async (ctx, next) => {
 
     let res = await findUserByParams(params={})
 
-    console.log(res);
+    return {
+        code:1, 
+        data:res,
+        msg:'成功'
+    }
 }
