@@ -24,6 +24,7 @@ const Trip = sequelize.define('Trip', {
 
 const findOrCreateTrip = async (options) => {
     return await Trip.findeOrCreate({
+        order: [[ 'createTime', 'DESC' ]],
         where : {
             date:options.date,
             guideOpenId:options.guideOpenId,
@@ -40,6 +41,20 @@ const findAllTrip = async (options) => {
     })
 }
 
-module.exports = {findOrCreateTrip, findAllTrip, Trip}
+const updateTrip = async (options) => {
+    return await Trip.update(options, {
+        where: {
+            id: options.id
+        }
+    })
+}
+
+const delTrip = async (options) => {
+    return await Trip.destroy ({
+        where:{id:options.id}
+    })
+}
+
+module.exports = {findOrCreateTrip, findAllTrip, updateTrip, delTrip, Trip}
 
 

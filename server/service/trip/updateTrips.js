@@ -1,17 +1,14 @@
-const {findOrCreateTrip} = require('../../model/TripModel');
+const {updateTrip} = require('../../model/TripModel');
 
 const paramsCheck = require('../../../utils/paramsCheck');
 const methodBody = require('../../../utils/methodBody');
 
-// 添加行程接口：/api/trip/createTrip
-// 请求类型：post
-// 参数：如下rules
 
 module.exports = async (ctx, next) => {
     let params = methodBody(ctx);
-    params.createPersonOpId = ctx.header['x-wx-openid'];
 
     let rules = {
+        id:'required|string', // 行程id
         operator:'required|string', // 操作人
         date:'required|string', // 团期
         inArea:'required|string', // 入境点
@@ -27,19 +24,11 @@ module.exports = async (ctx, next) => {
 
     paramsCheck(params, rules);
 
-    let [trip, created] = await findOrCreateTrip(params);
+    let res = await updateTrip(params);
 
-    if(created) {
-        return {
-            code:1,
-            data:trip,
-            msg:'成功'
-        }
-    } else {
-        return {
-            code:0,
-            data:{},
-            msg:"导游在该日期行程已经创建，请选择其他日期创建行程。"
-        }
+    return {
+        code:1,
+        data:res,
+        msg:'成功'
     }
 }

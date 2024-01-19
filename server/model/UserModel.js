@@ -32,4 +32,10 @@ const findOrCreateUser = async (options) => {
     })
 }
 
-module.exports = { GetUser, findOrCreateUser, User}
+const findUserByParams = async (options) => {
+    return await User.findAll({where:{
+        options
+    }})
+}
+
+module.exports = { GetUser, findOrCreateUser, findUserByParams, User}
