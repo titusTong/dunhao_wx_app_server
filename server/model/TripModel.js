@@ -35,9 +35,7 @@ const findOrCreateTrip = async (options) => {
 
 const findAllTrip = async (options) => {
     return await Trip.findAll({
-        where:{
-            options
-        }
+        where:options
     })
 }
 
