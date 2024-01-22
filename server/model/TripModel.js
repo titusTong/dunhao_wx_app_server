@@ -11,14 +11,14 @@ const Trip = sequelize.define('Trip', {
     },
     tripName:Sequelize.STRING, // 团名
     operator:Sequelize.STRING, // 操作人
-    date:Sequelize.STRING, // 团期,
+    date:Sequelize.ARRAY, // 团期,
     color:Sequelize.STRING, // 日历上显示的颜色
     createPersonOpId:Sequelize.STRING, // 创建人的openId
     inArea:Sequelize.STRING, // 入境点
     outArea:Sequelize.STRING, // 出境点
     remark:Sequelize.STRING, // 备注
     guideType:Sequelize.STRING, // 司兼导or司导分
-    guide:Sequelize.STRING, // 导游姓名
+
     guideOpenId:Sequelize.STRING, // 导游的openId，
     monthDate:Sequelize.STRING, // 用于查询的字段。无业务逻辑
 })
@@ -42,6 +42,12 @@ const findAllTrip = async (options) => {
     })
 }
 
+const getTripById = async (id) => {
+    return await Trip.findOne({
+        where:{id}
+    })
+}
+
 const updateTrip = async (options) => {
     return await Trip.update(options, {
         where: {
@@ -56,6 +62,6 @@ const delTrip = async (options) => {
     })
 }
 
-module.exports = {findOrCreateTrip, findAllTrip, updateTrip, delTrip, Trip}
+module.exports = {findOrCreateTrip, findAllTrip, updateTrip, delTrip, getTripById, Trip}
 
 

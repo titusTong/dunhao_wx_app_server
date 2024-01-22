@@ -24,10 +24,24 @@ module.exports = async (ctx, next) => {
 
     paramsCheck(params, rules);
 
+    // 获取前一个月和后一个月
+
+    const addMonth = (date, offset) => {
+        let newDate = new Date(date);
+        if (newDate instanceof Date && !isNaN(offset)) {
+            let givenMonth = newDate.getMonth();
+            let newMonth = givenMonth + offset;
+            newDate.setMonth(newMonth);
+            return `${newDate.getFullYear()}-${newDate.getMonth()+1 <= 9 ? `0${newDate.getMonth()+1}` : newDate.getMonth()+1}`;
+        }
+    }
+    
     let options = {
         guideOpenId:params.openId,
         monthDate:{
-            [Op.like]: `%${params.monthDate || ''}%`
+            [Op.like]: `%${addMonth(params.monthDate, -1) || ''}%`,
+            [Op.like]: `%${params.monthDate || ''}%`,
+            [Op.like]: `%${addMonth(params.monthDate, +1) || ''}%`,
         }
     }
 

@@ -26,7 +26,6 @@ module.exports = async (ctx, next) => {
             guideType:'required|number', // 司兼导or司导分, 1是司兼导2是司导分
             remark:'required|string', // 备注
     
-            guide:'required|string', // 导游姓名
             guideOpenId:'required|string', // 导游的openId
             color:'required|string', // 创建时候的颜色
     
@@ -39,7 +38,6 @@ module.exports = async (ctx, next) => {
             date:'required|array', // 团期
             remark:'string', // 备注
 
-            guide:'required|string', // 导游姓名
             guideOpenId:'required|string', // 导游的openId
             color:'required|string', // 创建时候的颜色
     
