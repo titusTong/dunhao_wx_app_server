@@ -7,25 +7,68 @@ const methodBody = require('../../../utils/methodBody');
 // 请求类型：post
 // 参数：如下rules
 
+
+const rdmRgbColor = () => {
+    //随机生成RGB颜色
+    const arr = [];
+    for (let i = 0; i < 3; i++) {
+      // 暖色
+      // arr.push(Math.floor(Math.random() * 128 + 64));
+      // 亮色
+      arr.push(Math.floor(Math.random() * 128 + 128));
+    }
+    const [r, g, b] = arr;
+    // rgb颜色
+    // var color=`rgb(${r},${g},${b})`;
+    // 16进制颜色
+    const color = `#${
+      r.toString(16).length > 1 ? r.toString(16) : "0" + r.toString(16)
+    }${g.toString(16).length > 1 ? g.toString(16) : "0" + g.toString(16)}${
+      b.toString(16).length > 1 ? b.toString(16) : "0" + b.toString(16)
+    }`;
+    return color;
+}
+
 module.exports = async (ctx, next) => {
     let params = methodBody(ctx);
     params.createPersonOpId = ctx.header['x-wx-openid'];
 
-    let rules = {
-        operator:'required|string', // 操作人
-        date:'required|string', // 团期
-        inArea:'required|string', // 入境点
-        outArea:'required|string', // 出境点
-        guideType:'required|number', // 司兼导or司导分, 1是司兼导2是司导分
-        remark:'required|string', // 备注
+    // 判断下是否是管理员创建的团。拿到openid查询用户
 
-        guide:'required|string', // 导游姓名
-        guideOpenId:'required|string', // 导游的openId
+    let userType = ctx.header.userType;
+    let rules = {}
+    if(userType == '1') {
+        rules = {
+            tripName:'required|string', // 团名称
+            operator:'required|string', // 操作人
+            date:'required|string', // 团期
+            inArea:'required|string', // 入境点
+            outArea:'required|string', // 出境点
+            guideType:'required|number', // 司兼导or司导分, 1是司兼导2是司导分
+            remark:'string', // 备注
+    
+            guide:'required|string', // 导游姓名
+            guideOpenId:'required|string', // 导游的openId
+    
+            createPersonOpId:'required|string', // 创建人的openId
+        }
+    } else if(userType == '2') {
+        rules = {
+            tripName:'string',
+            date:'required|string', // 团期
+            remark:'string', // 备注
 
-        createPersonOpId:'required|string', // 创建人的openId
+            guide:'required|string', // 导游姓名
+            guideOpenId:'required|string', // 导游的openId
+    
+            createPersonOpId:'required|string', // 创建人的openId
+        }
     }
 
     paramsCheck(params, rules);
+
+    // 创建一个随机颜色；
+    params.color = rdmRgbColor();
 
     let [trip, created] = await findOrCreateTrip(params);
 

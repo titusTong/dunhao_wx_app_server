@@ -1,7 +1,7 @@
 const {findOrCreateUser} = require('../../model/UserModel');
 const paramsCheck = require('../../../utils/paramsCheck');
 const methodBody = require('../../../utils/methodBody');
-
+const {pinyin} = require("pinyin");
 
 // 注册接口地址：/api/author/register
 // 请求方式：post
@@ -21,8 +21,7 @@ module.exports = async (ctx, next) => {
         openId:'required|string',
         inviteCode:'required|string'
     }
-
-    params.userType = 2; //写死所有人注册都是0；后台改管理员
+    params.userType = 2; //写死所有人注册都是2；后台改管理员
     paramsCheck(params, rules);
 
     if(params.inviteCode !== 'dunhao789') {

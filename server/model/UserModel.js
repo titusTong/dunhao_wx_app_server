@@ -2,6 +2,7 @@
 const sequelize = require('../../db');
 
 const Sequelize = require('sequelize');
+const { Op } = require("sequelize");
 
 
 const User = sequelize.define('User', {
@@ -32,8 +33,13 @@ const findOrCreateUser = async (options) => {
     })
 }
 
-const findUserByParams = async (options) => {
-    return await User.findAll({where:options})
+const findUserByParams = async (search) => {
+    return await User.findAll({
+        where:{[Op.or]: [
+            {name: {[Op.like]: `%${search || ''}%`}},
+            {area: {[Op.like]: `%${search || ''}%`}},
+          ]},
+    })
 }
 
 module.exports = { GetUser, findOrCreateUser, findUserByParams, User}

@@ -13,7 +13,10 @@ module.exports = async (ctx,next) => {
 
     if(openId) {
         let res = await GetUser({openId});
-        if(res && res.id) return true;
+        if(res && res.id) {
+            ctx.header.userType = res.userType;
+            return true;
+        }
     }
     return false
 }

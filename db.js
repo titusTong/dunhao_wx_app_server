@@ -16,11 +16,11 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
 // 测试开发环境
 
 // let config = {
-//     database:'admin',
+//     database:'nodejs_demo',
 //     username:'root',
-//     password:'tong1ling..',
-//     host:'titustong.asuscomm.com',
-//     port:'49154'
+//     password:'Tong1ling',
+//     host:'sh-cynosdbmysql-grp-o0rew9rq.sql.tencentcdb.com',
+//     port:'28452'
 // }
 
 // const sequelize = new Sequelize(config.database, config.username, config.password, {

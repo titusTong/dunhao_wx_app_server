@@ -9,8 +9,10 @@ const Trip = sequelize.define('Trip', {
         primaryKey: true, //主键
         autoIncrement:true,
     },
+    tripName:Sequelize.STRING, // 团名
     operator:Sequelize.STRING, // 操作人
-    date:Sequelize.STRING, // 团期
+    date:Sequelize.STRING, // 团期,
+    color:Sequelize.STRING, // 日历上显示的颜色
     createPersonOpId:Sequelize.STRING, // 创建人的openId
     inArea:Sequelize.STRING, // 入境点
     outArea:Sequelize.STRING, // 出境点
