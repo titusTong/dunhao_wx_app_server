@@ -1,4 +1,5 @@
 const {findAllTrip} = require('../../model/TripModel');
+const { Op } = require("sequelize");
 
 const paramsCheck = require('../../../utils/paramsCheck');
 const methodBody = require('../../../utils/methodBody');
