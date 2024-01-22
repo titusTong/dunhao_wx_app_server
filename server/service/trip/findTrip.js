@@ -12,6 +12,10 @@ const methodBody = require('../../../utils/methodBody');
 module.exports = async (ctx, next) => {
     let params = methodBody(ctx);
 
+    if(!params.openId) {
+        params.openId = ctx.header['x-wx-openid'];
+    }
+
     let rules={
         openId:'required|string', // 导游的openId
         monthDate:'required|string', // 月份， 例如：2024-03
