@@ -41,7 +41,7 @@ module.exports = async (ctx, next) => {
         rules = {
             tripName:'required|string', // 团名称
             operator:'required|string', // 操作人
-            date:'required|array', // 团期
+            date:'required|sting', // 团期
             inArea:'required|string', // 入境点
             outArea:'required|string', // 出境点
             guideType:'required|string', // 司兼导or司导分, 1是司兼导2是司导分
@@ -53,7 +53,7 @@ module.exports = async (ctx, next) => {
     } else if(userType == '2') {
         rules = {
             tripName:'string',
-            date:'required|array', // 团期
+            date:'required|string', // 团期
             remark:'string', // 备注
 
             guideOpenId:'required|string', // 导游的openId
@@ -68,7 +68,7 @@ module.exports = async (ctx, next) => {
     params.color = rdmRgbColor();
 
     // 为了查询用，设置字段monthDate；
-    let date = params.date;
+    let date = params.date.split(',');
     let start = date[0];
     let end = date[date.length-1]
 
