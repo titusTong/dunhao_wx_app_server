@@ -38,7 +38,7 @@ const findUserByParams = async (search) => {
         where:{[Op.or]: [
             {name: {[Op.like]: `%${search || ''}%`}},
             {area: {[Op.like]: `%${search || ''}%`}},
-          ]},
+        ]},
     })
 }
 

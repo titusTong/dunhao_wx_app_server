@@ -39,10 +39,12 @@ module.exports = async (ctx, next) => {
     let options = {
         guideOpenId:params.openId,
         monthDate:{
-            [Op.like]: `%${addMonth(params.monthDate, -1) || ''}%`,
-            [Op.like]: `%${params.monthDate || ''}%`,
-            [Op.like]: `%${addMonth(params.monthDate, +1) || ''}%`,
-        }
+            [Op.or]:[
+                {[Op.like]: `%${addMonth(params.monthDate, -1) || ''}%`},
+                {[Op.like]: `%${params.monthDate || ''}%`},
+                {[Op.like]: `%${addMonth(params.monthDate, +1) || ''}%`}
+            ]
+        },
     }
 
     let res = await findAllTrip(options)
