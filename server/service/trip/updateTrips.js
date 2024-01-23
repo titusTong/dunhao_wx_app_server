@@ -23,7 +23,7 @@ module.exports = async (ctx, next) => {
             date:'required|array', // 团期
             inArea:'required|string', // 入境点
             outArea:'required|string', // 出境点
-            guideType:'required|number', // 司兼导or司导分, 1是司兼导2是司导分
+            guideType:'required|string', // 司兼导or司导分, 1是司兼导2是司导分
             remark:'required|string', // 备注
     
             guideOpenId:'required|string', // 导游的openId
