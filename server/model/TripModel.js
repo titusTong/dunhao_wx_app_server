@@ -27,7 +27,6 @@ const Trip = sequelize.define('Trip', {
 
 const findOrCreateTrip = async (options) => {
     return await Trip.findOrCreate({
-        order: [[ 'createTime', 'DESC' ]],
         where : {
             date:options.date,
             guideOpenId:options.guideOpenId,
