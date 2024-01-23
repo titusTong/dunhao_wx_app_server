@@ -11,7 +11,7 @@ const Trip = sequelize.define('Trip', {
     },
     tripName:Sequelize.STRING, // 团名
     operator:Sequelize.STRING, // 操作人
-    date:Sequelize.ARRAY, // 团期,
+    date:Sequelize.ARRAY(Sequelize.STRING), // 团期,
     color:Sequelize.STRING, // 日历上显示的颜色
     createPersonOpId:Sequelize.STRING, // 创建人的openId
     inArea:Sequelize.STRING, // 入境点
