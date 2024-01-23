@@ -61,6 +61,7 @@ module.exports = async (ctx, next) => {
     
             createPersonOpId:'required|string', // 创建人的openId
         }
+        params.guideOpenId = params.createPersonOpId
     }
 
     paramsCheck(params, rules);
