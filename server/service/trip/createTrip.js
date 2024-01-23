@@ -41,7 +41,7 @@ module.exports = async (ctx, next) => {
         rules = {
             tripName:'required|string', // 团名称
             operator:'required|string', // 操作人
-            date:'required|sting', // 团期
+            date:'required|string', // 团期
             inArea:'required|string', // 入境点
             outArea:'required|string', // 出境点
             guideType:'required|string', // 司兼导or司导分, 1是司兼导2是司导分
