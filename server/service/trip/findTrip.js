@@ -49,10 +49,16 @@ module.exports = async (ctx, next) => {
 
     let res = await findAllTrip(options)
 
+    let datalist = res.map(item => {
+        let dateArr = item.date.split(',');
+        item.dateString = `${dateArr[0]} 至 ${dateArr[dateArr.length-1]}`;
+        return item;
+    })
+
     
     return {
         code:1,
-        data:res,
+        data:datalist,
         msg:'成功'
     }
 }
