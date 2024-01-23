@@ -50,8 +50,8 @@ module.exports = async (ctx, next) => {
     let res = await findAllTrip(options)
 
     let datalist = res.map(item => {
-        let dateArr = item.date.split(',');
-        item.dateString = `${dateArr[0]} 至 ${dateArr[dateArr.length-1]}`;
+        let dateArr = item.dataValues.date.split(',');
+        item.dataValues.dateString = `${dateArr[0]} 至 ${dateArr[dateArr.length-1]}`;
         return item;
     })
 
