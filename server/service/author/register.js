@@ -24,27 +24,28 @@ module.exports = async (ctx, next) => {
 
     paramsCheck(params, rules);
 
-    if(!(params.userType == 1 && params.inviteCode == 'dunhao789') || !(params.userType == 2 && params.inviteCode == 'dunhaopaiqi')) {
+    if((params.userType == 1 && params.inviteCode == 'dunhao789') || (params.userType == 2 && params.inviteCode == 'dunhaopaiqi')) {
+        let [user, created] = await findOrCreateUser(params);
+        console.log(user, created);
+        if(created) {
+            return {
+                code:1,
+                data:user,
+                msg:'成功'
+            }
+        } else {
+            return {
+                code:0,
+                data:{},
+                msg:`用户已存在，无需注册，请用${user.dataValues.name}的微信登录`
+            }
+        }
+    } else {
         return {
             code:0,
             data:{},
             msg:'邀请码不正确，请联系管理员索要正确的邀请码'
         }
     }
-
-    let [user, created] = await findOrCreateUser(params);
-    console.log(user, created);
-    if(created) {
-        return {
-            code:1,
-            data:user,
-            msg:'成功'
-        }
-    } else {
-        return {
-            code:0,
-            data:{},
-            msg:`用户已存在，无需注册，请用${user.dataValues.name}的微信登录`
-        }
-    }
+    
 }
