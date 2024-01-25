@@ -10,39 +10,21 @@ const methodBody = require('../../../utils/methodBody');
 
 module.exports = async (ctx, next) => {
     let params = methodBody(ctx);
-    let userType = ctx.header.userType;
 
-    let rules = {};
+    let rules = {
+        id:'required|string', // 行程id
+        tripName:'required|string', // 团名称
+        operator:'required|string', // 操作人
+        date:'required|string', // 团期
+        inArea:'required|string', // 入境点
+        outArea:'required|string', // 出境点
+        guideType:'required|string', // 司兼导or司导分, 1是司兼导2是司导分
+        remark:'string', // 备注
 
-    if(userType == '1') {
-        // 管理员
-        rules = {
-            id:'required|string', // 行程id
-            tripName:'required|string', // 团名称
-            operator:'required|string', // 操作人
-            date:'required|string', // 团期
-            inArea:'required|string', // 入境点
-            outArea:'required|string', // 出境点
-            guideType:'required|string', // 司兼导or司导分, 1是司兼导2是司导分
-            remark:'string', // 备注
-    
-            guideOpenId:'required|string', // 导游的openId
-            color:'required|string', // 创建时候的颜色
-    
-            createPersonOpId:'required|string', // 创建人的openId
-        }
-    } else {
-        rules = {
-            id:'required|string', // 行程id
-            tripName:'string',
-            date:'required|string', // 团期
-            remark:'string', // 备注
+        guideOpenId:'required|string', // 导游的openId
+        color:'required|string', // 创建时候的颜色
 
-            guideOpenId:'required|string', // 导游的openId
-            color:'required|string', // 创建时候的颜色
-    
-            createPersonOpId:'required|string', // 创建人的openId
-        }
+        createPersonOpId:'required|string', // 创建人的openId
     }
 
     paramsCheck(params, rules);

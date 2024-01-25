@@ -35,31 +35,17 @@ module.exports = async (ctx, next) => {
 
     // 判断下是否是管理员创建的团。拿到openid查询用户
 
-    let userType = ctx.header.userType;
-    let rules = {}
-    if(userType == '1') {
-        rules = {
-            tripName:'required|string', // 团名称
-            operator:'required|string', // 操作人
-            date:'required|string', // 团期
-            inArea:'required|string', // 入境点
-            outArea:'required|string', // 出境点
-            guideType:'required|string', // 司兼导or司导分, 1是司兼导2是司导分
-            remark:'string', // 备注
-    
-            guideOpenId:'required|string', // 导游的openId
-            createPersonOpId:'required|string', // 创建人的openId
-        }
-    } else if(userType == '2') {
-        rules = {
-            tripName:'string',
-            date:'required|string', // 团期
-            remark:'string', // 备注
+    let rules = {
+        tripName:'required|string', // 团名称
+        operator:'required|string', // 操作人
+        date:'required|string', // 团期
+        inArea:'required|string', // 入境点
+        outArea:'required|string', // 出境点
+        guideType:'required|string', // 司兼导or司导分, 1是司兼导2是司导分
+        remark:'string', // 备注
 
-            guideOpenId:'required|string', // 导游的openId
-            createPersonOpId:'required|string', // 创建人的openId
-        }
-        params.guideOpenId = params.createPersonOpId
+        guideOpenId:'required|string', // 导游的openId
+        createPersonOpId:'required|string', // 创建人的openId
     }
 
     paramsCheck(params, rules);
