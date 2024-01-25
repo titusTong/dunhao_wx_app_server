@@ -21,10 +21,10 @@ module.exports = async (ctx, next) => {
         openId:'required|string',
         inviteCode:'required|string'
     }
-    params.userType = 2; //写死所有人注册都是2；后台改管理员
+
     paramsCheck(params, rules);
 
-    if(params.inviteCode !== 'dunhao789') {
+    if(!(params.userType == 1 && params.inviteCode == 'dunhao789') || !(params.userType == 2 && params.inviteCode == 'dunhaopaiqi')) {
         return {
             code:0,
             data:{},
