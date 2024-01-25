@@ -1,7 +1,7 @@
 const {findOrCreateUser} = require('../../model/UserModel');
 const paramsCheck = require('../../../utils/paramsCheck');
 const methodBody = require('../../../utils/methodBody');
-const {pinyin} = require("pinyin");
+
 
 // 注册接口地址：/api/author/register
 // 请求方式：post
