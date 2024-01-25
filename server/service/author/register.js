@@ -24,7 +24,7 @@ module.exports = async (ctx, next) => {
 
     paramsCheck(params, rules);
 
-    if((params.userType == 1 && params.inviteCode == 'dunhao789') || (params.userType == 2 && params.inviteCode == 'dunhaopaiqi')) {
+    if((params.userType == 1 && params.inviteCode.trim() == 'dunhao789') || (params.userType == 2 && params.inviteCode.trim() == 'dunhaopaiqi')) {
         let [user, created] = await findOrCreateUser(params);
         console.log(user, created);
         if(created) {
