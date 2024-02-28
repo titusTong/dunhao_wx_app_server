@@ -35,7 +35,9 @@ const findOrCreateUser = async (options) => {
 
 const findUserByParams = async (search) => {
     return await User.findAll({
-        where:{[Op.or]: [
+        where:{
+            userType:2,
+            [Op.or]: [
             {name: {[Op.like]: `%${search || ''}%`}},
             {area: {[Op.like]: `%${search || ''}%`}},
         ]},
