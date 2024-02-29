@@ -50,7 +50,7 @@ module.exports = async (ctx, next) => {
         },
     }
 
-    if(tripsWithinTheCalendar) {
+    if(params.tripsWithinTheCalendar) {
         options = {
             guideOpenId:params.openId,
             monthDate:{
