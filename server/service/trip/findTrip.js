@@ -51,18 +51,32 @@ module.exports = async (ctx, next) => {
     }
 
     if(params.tripsWithinTheCalendar) {
+        console.log(addMonth(params.monthDate, +12));
         options = {
             guideOpenId:params.openId,
             monthDate:{
                 [Op.or]:[
                     {[Op.like]: `%${addMonth(params.monthDate, -3) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, -2) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, -1) || ''}%`},
                     {[Op.like]: `%${params.monthDate || ''}%`},
-                    {[Op.like]: `%${addMonth(params.monthDate, +12) || ''}%`}
+                    {[Op.like]: `%${addMonth(params.monthDate, +1) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +2) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +3) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +4) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +5) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +6) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +7) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +8) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +9) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +10) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +11) || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +12) || ''}%`},
                 ]
             },
         }
     }
-
+    console.log(options);
     let res = await findAllTrip(options)
 
     let datalist = res.map(item => {
