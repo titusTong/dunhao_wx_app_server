@@ -55,7 +55,6 @@ module.exports = async (ctx, next) => {
             guideOpenId:params.openId,
             monthDate:{
                 [Op.or]:[
-                    {[Op.like]: `%${addMonth(params.monthDate, -3) || ''}%`},
                     {[Op.like]: `%${addMonth(params.monthDate, -2) || ''}%`},
                     {[Op.like]: `%${addMonth(params.monthDate, -1) || ''}%`},
                     {[Op.like]: `%${params.monthDate || ''}%`},
