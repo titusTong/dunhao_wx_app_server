@@ -51,7 +51,6 @@ module.exports = async (ctx, next) => {
     }
 
     if(params.tripsWithinTheCalendar) {
-        console.log(addMonth(params.monthDate, +12));
         options = {
             guideOpenId:params.openId,
             monthDate:{
@@ -76,7 +75,6 @@ module.exports = async (ctx, next) => {
             },
         }
     }
-    console.log(options);
     let res = await findAllTrip(options)
 
     let datalist = res.map(item => {
