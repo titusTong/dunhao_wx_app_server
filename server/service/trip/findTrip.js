@@ -8,7 +8,10 @@ const methodBody = require('../../../utils/methodBody');
 // 请求方式：post
 // 参数：
 // openId-导游的openid
-// monthDate-年月。例如：2024-03
+// monthDate-年月。例如：2024-03,
+
+// tripsWithinTheCalendar:true, 这查询日历范围内所有行程；
+
 
 module.exports = async (ctx, next) => {
     let params = methodBody(ctx);
@@ -45,6 +48,19 @@ module.exports = async (ctx, next) => {
                 {[Op.like]: `%${addMonth(params.monthDate, +1) || ''}%`}
             ]
         },
+    }
+
+    if(tripsWithinTheCalendar) {
+        options = {
+            guideOpenId:params.openId,
+            monthDate:{
+                [Op.or]:[
+                    {[Op.like]: `%${addMonth(params.monthDate, -3) || ''}%`},
+                    {[Op.like]: `%${params.monthDate || ''}%`},
+                    {[Op.like]: `%${addMonth(params.monthDate, +12) || ''}%`}
+                ]
+            },
+        }
     }
 
     let res = await findAllTrip(options)

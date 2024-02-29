@@ -13,7 +13,7 @@ const User = sequelize.define('User', {
     },
     name:Sequelize.STRING(100),
     userType:Sequelize.INTEGER, // 1或者2,2是普通用户（导游），1是管理员；
-    area:Sequelize.STRING(10), //导游所在地区
+    area:Sequelize.STRING(100), //导游所在地区
     openId:Sequelize.STRING(50), // 用户的openid
 })
 
