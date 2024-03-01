@@ -1,4 +1,5 @@
 const {findOrCreateTrip} = require('../../model/TripModel');
+const {GetUser} = require('../../model/UserModel');
 
 const paramsCheck = require('../../../utils/paramsCheck');
 const methodBody = require('../../../utils/methodBody');
@@ -66,6 +67,14 @@ module.exports = async (ctx, next) => {
     } else {
         params.monthDate = `${startMonth}, ${endMonth}`
     }
+
+    // 新建的时候把导游名字加上。
+
+    let guideRes = await GetUser({openId:params.guideOpenId})
+
+    let guideName = guideRes.dataValues.name;
+
+    params.guideName = guideName;
 
     let [trip, created] = await findOrCreateTrip(params);
 

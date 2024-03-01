@@ -20,6 +20,7 @@ const Trip = sequelize.define('Trip', {
     guideType:Sequelize.STRING, // 司兼导or司导分
 
     guideOpenId:Sequelize.STRING, // 导游的openId，
+    guideName:Sequelize.STRING, // 导游名字
     monthDate:Sequelize.STRING, // 用于查询的字段。无业务逻辑
 })
 
