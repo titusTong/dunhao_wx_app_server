@@ -76,6 +76,8 @@ module.exports = async (ctx, next) => {
 
     params.guideName = guideName;
 
+    params.startDate = start;
+
     let [trip, created] = await findOrCreateTrip(params);
 
     if(created) {
