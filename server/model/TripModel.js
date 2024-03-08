@@ -23,6 +23,7 @@ const Trip = sequelize.define('Trip', {
     guideName:Sequelize.STRING, // 导游名字
     monthDate:Sequelize.STRING, // 用于查询的字段。无业务逻辑
     startDate:Sequelize.STRING, // 团期开始日期。用于排序。
+    fileList:Sequelize.JSON, // 团队文件json数据。
 })
 
 

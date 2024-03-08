@@ -47,6 +47,7 @@ module.exports = async (ctx, next) => {
 
         guideOpenId:'required|string', // 导游的openId
         createPersonOpId:'required|string', // 创建人的openId
+        fileJson:'array', // 团文件列表
     }
 
     paramsCheck(params, rules);
