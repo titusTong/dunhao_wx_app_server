@@ -1,16 +1,12 @@
 
-
 const paramsCheck = require('../../../utils/paramsCheck');
 const methodBody = require('../../../utils/methodBody');
 const fetch = require('node-fetch');
 
 
 module.exports = async (ctx, next) => {
-    let params = methodBody(ctx);
-
-    let rules = {
-        fileName:'required|string', // 文件名
-    }
+    let params = JSON.parse(methodBody(ctx));
+    let rules = {fileName: 'required|string'} // 文件名
 
     paramsCheck(params, rules);
 
