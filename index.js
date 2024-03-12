@@ -45,7 +45,7 @@ app.use(static(path.join(__dirname, 'dist')));
 app.use(async (ctx, next) => {
 
     ctx.set("Access-Control-Allow-Origin", ctx.headers.origin);
-    ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, sign');
+    ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, sign, X-Wx-Openid');
     ctx.set("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
     ctx.set("Access-Control-Allow-Credentials", "true");
     ctx.set('Access-Control-Max-Age', 60 * 60 * 24 * 7) // 缓存预检时间
