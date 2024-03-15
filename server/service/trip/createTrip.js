@@ -79,6 +79,10 @@ module.exports = async (ctx, next) => {
 
     params.startDate = start;
 
+    if(!params.fileList) {
+        params.fileList = [];
+    }
+
     let [trip, created] = await findOrCreateTrip(params);
 
     if(created) {
